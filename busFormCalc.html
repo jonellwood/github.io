@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <h2>Business Fee Calulator</h2>
+    </head>
+    <body>
+
+
+        <form id="businesscalculator" method="post" action="/business-license-fee-calculator" onSubmit="return false">
+            <label for="classcode">Class Code: </label>
+            <select id="classcode" class="form-select" onChange="showfields(this)">
+                <option value="NULL"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select><p><a href="https://www.naics.com/search/" target="_blank">Don't know class code?</a></p>
+            <div id="residencybox" style="display:none">
+            <label for="residency">Residency: </label>
+            <select id="residency" class="form-select">
+                <option value="1">Resident</option>
+                <option value="2">Out of Town Business</option>
+            </select>
+            </div>
+            <div id="grossbox" style="display:none">
+            <label for="receipts">Gross Receipts: </label>
+            <input id="receipts" class="form-text" type="text" size="25" />
+            </div>
+            <div id="machinebox" style="display:none">
+            <label for="machines">Number of Machines: </label>
+            <input id="machines" class="form-text" type="text" size="25" />
+            </div>
+            <input class="form-submit" type="submit" onclick="processForm()" value="Submit" />
+            </form>
+            <p id="resultsblock" style="display: none">THIS ONE</p>
+
+            <script type="text/javascript">
+
+
+            function showfields(val){
+                //ONCHANGE EVENT
+                    var array1= new Array("1","2","3","4","5","6","7","8");
+                    if(array1.indexOf(val.value) != -1) 
+                    {document.getElementById('grossbox').style.display='block'; 
+                    document.getElementById('residencybox').style.display='block'; 
+                    document.getElementById('machinebox').style.display='none';
+                    document.getElementById("resultsblock").style.display='none';}
+                }
+
+            function processForm(e){
+                var array1= new Array("1","2","3","4","5","6","7","8");
+            
+            var answerdisplay = document.getElementById("resultsblock");
+            var cla = document.getElementById("classcode").value;
+            var grossreceipts = document.getElementById("receipts").value;
+            var residence = document.getElementById("residency").value;
+            var numMachines = document.getElementById("machines").value;
+            var base=0;
+            var excess=0;
+
+            //SET BASE/EXCESS PRICES
+            switch(cla){
+                case "1":
+                base=30.00;
+                excess=0.6;
+                break;
+                case "2":
+                base=30.00
+                excess=0.70;
+                break;
+                case "3":
+                base=40.00;
+                excess=0.80;
+                break;
+                case "4":
+                base=50.00;
+                excess=0.90;
+                break;
+                case "5":
+                base=60.00;
+                excess=1.00;
+                break;
+                case "6":
+                base=70.00;
+                excess=1.1;
+                break;
+                case "7":
+                base=80.00;
+                excess=1.2;
+                break;
+                case "8":
+                base=35.00;
+                excess=0.95;
+                break;
+                
+            }
+
+            //ERROR MESSAGES 
+            if (cla=="NULL") {
+                answerdisplay.innerHTML="Invalid Class Code Entry";
+                answerdisplay.className+="error";
+                answerdisplay.style.display="block";}
+            
+            else if((array1.indexOf(cla) != -1) && (isNaN(grossreceipts)))
+            {answerdisplay.innerHTML="Invalid Gross Receipts Entry";
+                answerdisplay.className+="error";
+                answerdisplay.style.display="block";}
+            
+            
+
+            else{
+            //BEGIN CALCULATIONS
+            
+            //If Class 1-7 
+            if( (array1.indexOf(cla) != -1) && (cla!="8.6") && (cla!="8.6A") && (cla!="9.2")){
+                var inner=0;
+                if ((grossreceipts>=2000) && (grossreceipts<1000000)){
+                inner=excess* ((grossreceipts-2000)/1000);
+                }
+                if ((grossreceipts>=1000000) && (grossreceipts<2000000)) {
+                inner= 998*excess + (excess*((grossreceipts-1000000)/1000)*.9);
+                }
+                if ((grossreceipts>=2000000) && (grossreceipts<3000000)) { 
+                inner= 998*excess + (excess*1000*.9) + (excess*((grossreceipts-2000000)/1000)*.8);
+                }
+            if ((grossreceipts>=3000000) && (grossreceipts<4000000)) { 
+                inner= 998*excess + (excess*1000*.9) + (excess*1000*.8) + (excess*((grossreceipts-3000000)/1000)*.7);
+                }
+            if (grossreceipts>=4000000) { 
+                inner= 998*excess + (excess*1000*.9) + (excess*1000*.8) + (excess*1000*.7) + (excess*((grossreceipts-4000000)/1000)*.6);
+            }
+            var finalresult= (base + inner) * residence;
+            finalresult= finalresult.toFixed(2);
+            answerdisplay.innerHTML= "Expected License Fee: $" + finalresult;
+            answerdisplay.style.display="block";}
+
+            
+
+        }}
+        
+            </script>
+
+        </div>
+
+    </body>    
+        
+        </div>
+
+
+        <!-- # Class 1 with 4,500,000 in gross receipts = 2,248.8
+        # Class 3 with 2,500,000 in gross receipts =1,878.4
+        # Class 7 with 250,000 in gross receipts =377.6
+        # Class 4 with 1,000,000 in gross receipts =948.2
+        # Class 5 with 0,000,000 in gross receipts = 0 -->
