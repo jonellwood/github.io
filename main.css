@@ -49,8 +49,8 @@ div.container {
     margin-top: 20px;
     background-color: #1259fe;
     border-radius: 5px;
-    border: 0;
-    color: #fff;
+    border: 4;
+    color: rgb(240, 41, 51);
 }
 
 #delete {
