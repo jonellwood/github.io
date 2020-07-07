@@ -1,5 +1,7 @@
 body {
-    background: whitesmoke;
+    background-image: url("CoH\ Logo.png");
+    background-repeat: no-repeat;
+    background-color: #cccccc;
     color:black;
 }
 h1,
