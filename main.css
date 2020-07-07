@@ -1,6 +1,6 @@
 body {
-    background: linear-gradient(to bottom right, #00000c, #140470);
-    color: #fff;
+    background: whitesmoke;
+    color:black;
 }
 h1,
 h2,
@@ -11,7 +11,7 @@ p,
 span,
 strike {
     font-family: "", "";
-    text-align: center
+    text-align: left
 }
 
 div.container {
@@ -22,7 +22,7 @@ div.container {
     max-width: 150px;
     margin: 0 auto;
     box-shadow: 5 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    background-color: #fff00;
+    background-color: blue;
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 20px;
