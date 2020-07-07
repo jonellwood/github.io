@@ -122,7 +122,7 @@
             if( (array1.indexOf(cla) != -1) && (cla!="8.6") && (cla!="8.6A") && (cla!="9.2")){
                 var inner=0;
                 if ((grossreceipts>=2000) && (grossreceipts<1000000)){
-                inner=excess* ((grossreceipts-2000)/1000);
+                inner=excess*Math.ceil ((grossreceipts-2000)/1000);
                 }
                 if ((grossreceipts>=1000000) && (grossreceipts<2000000)) {
                 inner= 998*excess + (excess*((grossreceipts-1000000)/1000)*.9);
