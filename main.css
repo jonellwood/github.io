@@ -17,6 +17,9 @@ strike {
     text-align: left
 }
 
+#businesscalculator {
+    border:4px solid grey;
+}
 div.container {
     padding: 30px;
     line-height: 125%;
